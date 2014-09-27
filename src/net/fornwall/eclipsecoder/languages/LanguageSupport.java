@@ -55,7 +55,12 @@ public abstract class LanguageSupport {
 	public static final String LANGUAGE_NAME_VB = "VB";
 
 	public static String getDefaultProjectName(ProblemStatement problemStatement, String languageName) {
-		return (problemStatement.getSolutionClassName() + "-" + languageName).toLowerCase();
+		if (EclipseCoderPlugin.useContestNameAsProjectName()) {
+			String[] s = problemStatement.getContestName().split("\\s");
+			return (s[0]+s[1] + "-" + s[2]+s[3] + "-" + s[5] + "-" + languageName).toLowerCase();
+		} else {
+			return (problemStatement.getSolutionClassName() + "-" + languageName).toLowerCase();
+		}
 	}
 
 	protected CodeGenerator codeGenerator;
@@ -111,7 +116,6 @@ public abstract class LanguageSupport {
 					result.openSourceFileInEditor();
 					return result;
 				}
-
 				workbenchWindow.getShell().forceActive();
 				if (Utilities.showOkCancelDialog("Malformed project exists", "The project \"" + getProjectName()
 						+ "\" already exists but lacks the expected source file \"" + getSolutionFileName()
@@ -119,7 +123,6 @@ public abstract class LanguageSupport {
 					myProject.delete(true, true, null);
 					return createProject(theProblemStatement);
 				}
-
 				return null;
 			}
 

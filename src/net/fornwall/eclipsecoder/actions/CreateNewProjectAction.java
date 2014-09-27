@@ -1,5 +1,7 @@
 package net.fornwall.eclipsecoder.actions;
 
+import java.util.List;
+
 import net.fornwall.eclipsecoder.languages.LanguageSupport;
 import net.fornwall.eclipsecoder.languages.LanguageSupportFactory;
 import net.fornwall.eclipsecoder.preferences.EclipseCoderPlugin;
@@ -75,8 +77,11 @@ public class CreateNewProjectAction extends Action {
 			languageLabel.setText("Programming language:");
 
 			languageCombo = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
-			languageCombo.setItems(LanguageSupportFactory.supportedLanguages().toArray(new String[0]));
-			languageCombo.setText(EclipseCoderPlugin.preferedLanguage());
+			String prefLang = EclipseCoderPlugin.preferedLanguage();
+			List<String> supportedLang = LanguageSupportFactory.supportedLanguages();
+			supportedLang.remove(prefLang);
+			supportedLang.add(0, prefLang);
+			languageCombo.setItems(supportedLang.toArray(new String[0]));
 			languageCombo.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 			languageCombo.addSelectionListener(new SelectionAdapter() {
 
@@ -87,7 +92,7 @@ public class CreateNewProjectAction extends Action {
 				}
 
 			});
-
+			
 			final Label nameLabel = new Label(container, SWT.NONE);
 			nameLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
 			nameLabel.setText("Project name:");

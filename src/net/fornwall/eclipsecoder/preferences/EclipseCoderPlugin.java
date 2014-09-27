@@ -25,6 +25,8 @@ public class EclipseCoderPlugin extends AbstractUIPlugin {
 
 	public static final String PREFERENCE_LANGUAGE = "languagePreference";
 
+	public static final String PREFERENCE_PROJECT_NAME = "projectNamePreference";
+	
 	/**
 	 * Boolean specifying if user should be automatically logged in when starting TopCoder arena applet.
 	 */
@@ -102,6 +104,10 @@ public class EclipseCoderPlugin extends AbstractUIPlugin {
 		return supported.get(0);
 	}
 
+	public static boolean useContestNameAsProjectName() {
+		return instance.getPreferenceStore().getBoolean(EclipseCoderPlugin.PREFERENCE_PROJECT_NAME);
+	}
+	
 	public static boolean tcAutoLogon() {
 		return instance.getPreferenceStore().getBoolean(EclipseCoderPlugin.PREFERENCE_TC_AUTOLOGON);
 	}

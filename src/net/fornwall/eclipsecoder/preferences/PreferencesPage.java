@@ -33,7 +33,7 @@ public class PreferencesPage extends FieldEditorPreferencePage implements IWorkb
 	private StringFieldEditor passwordEditor;
 
 	private BooleanFieldEditor autoLogonEditor;
-
+	
 	@Override
 	protected void createFieldEditors() {
 		userNameEditor = new StringFieldEditor(EclipseCoderPlugin.PREFERENCE_TC_USERNAME, "TopCoder username",
@@ -57,6 +57,10 @@ public class PreferencesPage extends FieldEditorPreferencePage implements IWorkb
 		}
 		addField(new RadioGroupFieldEditor(EclipseCoderPlugin.PREFERENCE_LANGUAGE, "Preferred programming language", 1,
 				labelAndValues, getFieldEditorParent(), true));
+		addField(new SpacerFieldEditor(getFieldEditorParent()));
+		
+		addField(new BooleanFieldEditor(EclipseCoderPlugin.PREFERENCE_PROJECT_NAME, 
+				"Use the contest name as the project name", getFieldEditorParent()));
 	}
 
 	@Override
